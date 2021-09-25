@@ -38,6 +38,36 @@ class Tree
     end
   end
 
+  def delete(value, node = @root)
+    if value < node.data
+      if node.left.data == value
+        return node.left = nil if node.left.right.nil? && node.left.left.nil?
+
+        if node.left.right.nil? || node.left.left.nil?
+          remove = [node.left.right, node.left.left].find { |x| !x.nil? }
+          node.left.data = remove.data
+          node.left.left = nil
+          node.left.right = nil
+        end
+      else
+        delete(value, node.left)
+      end
+    elsif value > node.data
+      if node.right.data == value
+        return node.right = nil if node.right.right.nil? && node.right.left.nil?
+
+        if node.right.right.nil? || node.right.left.nil?
+          remove = [node.right.right, node.right.left].find { |x| !x.nil? }
+          node.right.data = remove.data
+          node.right.left = nil
+          node.right.right = nil
+        end
+      else
+        delete(value, node.right)
+      end
+    end
+  end
+
   def to_s
     pretty_print
   end
