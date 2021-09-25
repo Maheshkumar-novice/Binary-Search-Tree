@@ -8,8 +8,21 @@ class Tree
   end
 
   def build_tree(array)
-    # return value => level 0 : root
-    # input : array
-    # process: sort the array, remove duplicates, create balanced binary search tree
+    array = prepare_the_array(array)
+  end
+
+  private
+
+  def prepare_the_array(array)
+    make_the_array_unique(array)
+    sort_the_array(array)
+  end
+
+  def make_the_array_unique(array)
+    array.uniq
+  end
+
+  def sort_the_array(array)
+    array.sort
   end
 end
