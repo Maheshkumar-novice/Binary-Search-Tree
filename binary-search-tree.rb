@@ -24,7 +24,7 @@ class Tree
   private
 
   def prepare_the_array(array)
-    make_the_array_unique(array)
+    array = make_the_array_unique(array)
     sort_the_array(array)
   end
 
