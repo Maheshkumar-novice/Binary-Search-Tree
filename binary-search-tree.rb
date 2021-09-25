@@ -7,7 +7,7 @@ require_relative 'colors/color'
 # Binary Search Tree
 class Tree
   include Color
-  
+
   def initialize(array)
     @root = build_tree(array)
   end
@@ -18,6 +18,24 @@ class Tree
     start_index = 0
     end_index = array.size - 1
     create_bst(start_index, end_index, array)
+  end
+
+  def insert(value, node = @root, node_to_insert = Node.new(value))
+    return if value == node.data
+
+    if value > node.data
+      if node.right.nil?
+        node.right = node_to_insert
+      else
+        insert(value, node.right, node_to_insert)
+      end
+    elsif value < node.data
+      if node.left.nil?
+        node.left = node_to_insert
+      else
+        insert(value, node.left, node_to_insert)
+      end
+    end
   end
 
   def to_s
