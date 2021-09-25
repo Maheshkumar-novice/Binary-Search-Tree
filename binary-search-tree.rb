@@ -17,6 +17,10 @@ class Tree
     create_bst(start_index, end_index, array)
   end
 
+  def to_s
+    pretty_print
+  end
+
   private
 
   def prepare_the_array(array)
@@ -40,5 +44,11 @@ class Tree
     root.left = create_bst(start_index, middle_index - 1, array)
     root.right = create_bst(middle_index + 1, end_index, array)
     root
+  end
+
+  def pretty_print(node = @root, prefix = '', is_left = true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 end
