@@ -2,9 +2,12 @@
 # frozen_string_literal: true
 
 require_relative 'tree-node'
+require_relative 'colors/color'
 
 # Binary Search Tree
 class Tree
+  include Color
+  
   def initialize(array)
     @root = build_tree(array)
   end
@@ -48,7 +51,14 @@ class Tree
 
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
-    puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.data}"
+    puts "#{color_text(prefix,
+                       :green)}#{if is_left
+                                   color_text('└── ',
+                                              :green)
+                                 else
+                                   color_text('┌── ',
+                                              :green)
+                                 end}#{color_text(node.data, :red)}"
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 end
