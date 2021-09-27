@@ -97,6 +97,13 @@ class Tree
     find_succ(node.left, node)
   end
 
+  def find(value, node = @root)
+    return nil if node.nil?
+    return node if node.data == value
+
+    find(value, node.right) || find(value, node.left)
+  end
+
   def to_s
     pretty_print
   end
