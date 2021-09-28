@@ -80,9 +80,17 @@ class Tree
   def inorder(node = @root, values = [])
     return values if node.nil?
 
-    in_order(node.left, values)
+    inorder(node.left, values)
     values << node.data
-    in_order(node.right, values)
+    inorder(node.right, values)
+  end
+
+  def preorder(node = @root, values = [])
+    return values if node.nil?
+
+    values << node.data
+    preorder(node.left, values)
+    preorder(node.right, values)
   end
 
   def to_s
