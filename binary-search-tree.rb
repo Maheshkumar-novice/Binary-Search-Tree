@@ -93,6 +93,14 @@ class Tree
     preorder(node.right, values)
   end
 
+  def postorder(node = @root, values = [])
+    return values if node.nil?
+
+    postorder(node.left, values)
+    postorder(node.right, values)
+    values << node.data
+  end
+
   def to_s
     pretty_print
   end
