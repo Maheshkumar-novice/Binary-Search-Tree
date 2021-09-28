@@ -77,6 +77,14 @@ class Tree
     level_order(queue, values)
   end
 
+  def inorder(node = @root, values = [])
+    return values if node.nil?
+
+    in_order(node.left, values)
+    values << node.data
+    in_order(node.right, values)
+  end
+
   def to_s
     pretty_print
   end
