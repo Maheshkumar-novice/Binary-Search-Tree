@@ -66,6 +66,17 @@ class Tree
     value > node.data ? find(value, node.right) : find(value, node.left)
   end
 
+  def level_order(queue = [@root], values = [])
+    return nil if @root.nil?
+    return values if queue.empty?
+
+    node = queue.shift
+    queue.push(node.left) unless node.left.nil?
+    queue.push(node.right) unless node.right.nil?
+    values << node.data
+    level_order(queue, values)
+  end
+
   def to_s
     pretty_print
   end
