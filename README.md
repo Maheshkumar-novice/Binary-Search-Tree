@@ -11,6 +11,9 @@
       <a href="#applications">Applications</a>
     </li>
     <li>
+      <a href="#variations">Variations</a>
+    </li>
+    <li>
       <a href="#built-with">Built With</a>
     </li>
      <li>
