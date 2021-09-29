@@ -8,10 +8,10 @@
       <a href="#description">Description</a>
     </li>
     <li>
-      <a href="#applications">Applications</a>
+      <a href="#variations">Variations</a>
     </li>
     <li>
-      <a href="#variations">Variations</a>
+      <a href="#applications">Applications</a>
     </li>
     <li>
       <a href="#built-with">Built With</a>
