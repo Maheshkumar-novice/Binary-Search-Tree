@@ -107,6 +107,17 @@ class Tree
     [height(node.left), height(node.right)].max + 1
   end
 
+  def depth(node = @root, matcher = @root)
+    return nil if node.nil?
+    return 0 if node.data == matcher.data
+
+    if node.data < matcher.data
+      depth(node, matcher.left) + 1
+    elsif node.data > matcher.data
+      depth(node, matcher.right) + 1
+    end
+  end
+
   def to_s
     pretty_print
   end
