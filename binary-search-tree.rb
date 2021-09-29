@@ -118,6 +118,12 @@ class Tree
     end
   end
 
+  def balanced?(node = @root)
+    return -1 if node.nil?
+
+    diff(height(node.left), height(node.right)) <= 1
+  end
+
   def to_s
     pretty_print
   end
@@ -151,6 +157,10 @@ class Tree
     return node if node.left.nil?
 
     find_right_sub_tree_min_node(node.left)
+  end
+
+  def diff(number1, number2)
+    (number1 - number2).abs
   end
 
   def pretty_print(node = @root, prefix = '', is_left = true)
