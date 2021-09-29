@@ -34,17 +34,17 @@
 >In computer science, a binary search tree (BST), also called an ordered or sorted binary tree, is a rooted binary tree data structure whose internal nodes each store a key greater than all the keys in the node’s left subtree and less than those in its right subtree. A binary tree is a type of data structure for storing data such as numbers in an organized way. Binary search trees allow binary search for fast lookup, addition and removal of data items, and can be used to implement dynamic sets and lookup tables. - [Wikipedia](https://en.wikipedia.org/wiki/Binary_search_tree)
 
 ### BST
-Binary Search Tree is a data structure where each root node's left subtree contains values lesser than the root node's value and right subtree contains values greater than the root node's value. Binary Search - Where we omit half the size of the problem on each iteration to find the solution. We start from middle of the collection of course. In binary search trees the root node will be the middle element of the collection. The root node's left child will be the middle element of the left half of the collection and the right child will be the middle element of the right half of the collection and it continues recursively until all the nodes are in the tree structure. It will be easier look for values in the binary search tree because every node's value will be greater than the left subtree and lesser than the right subtree.
+`Binary Search Tree` is a data structure where each root node's left subtree contains values lesser than the root node's value and right subtree contains values greater than the root node's value. `Binary Search` - Where we omit half the size of the problem on each iteration to find the solution. We start from middle of the collection of course. In binary search trees the root node will be the middle element of the collection. The root node's left child will be the middle element of the left half of the collection and the right child will be the middle element of the right half of the collection and it continues recursively until all the nodes are in the tree structure. It will be easier look for values in the binary search tree because every node's value will be greater than the left subtree and lesser than the right subtree.
 
 ### Balanced BST
-Balanced Binary Search Tree is a Binary Search Tree with the left and right subtrees' height difference must not exceed 1, recursively of course.
+`Balanced Binary Search Tree` is a Binary Search Tree with the left and right subtrees' height difference must not exceed 1, recursively of course.
 
 ### Height and Depth
-* Height of a Node in a Binary Search Tree is the number edges from a Node to the farthest leaf it can reach
-* Height of tree with 1 node is 0
-* Depth of a Node in a Binary Search Tree is the number edges from a root node to the given node
-* Depth of a root node is 0
-* Height of root node = Height of the tree = Max Depth of the Tree
+* `Height` of a node in a Binary Search Tree is the `number edges from a node to the farthest leaf it can reach`
+* `Height` of the tree with `1` node is `0`
+* `Depth` of a node in a Binary Search Tree is the `number edges from the root node to the given node`
+* `Depth` of a `root` node is `0`
+* `Height of root node = Height of the tree = Max Depth of the Tree`
 
 ### Traversal
 * Breadth First
