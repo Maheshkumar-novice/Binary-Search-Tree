@@ -124,6 +124,10 @@ class Tree
     diff(height(node.left), height(node.right)) <= 1
   end
 
+  def rebalance
+    @root = build_tree(level_order)
+  end
+
   def to_s
     pretty_print
   end
