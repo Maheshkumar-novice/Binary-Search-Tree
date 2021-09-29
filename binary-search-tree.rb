@@ -101,6 +101,12 @@ class Tree
     values << node.data
   end
 
+  def height(node = @root)
+    return -1 if node.nil?
+
+    [height(node.left), height(node.right)].max + 1
+  end
+
   def to_s
     pretty_print
   end
