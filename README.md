@@ -75,7 +75,7 @@ Method Name  | Description
 * [AVL Trees](https://en.wikipedia.org/wiki/AVL_tree)
 * [Red-Black Trees](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree)
 
-Above are the two common `self-balancing BST`'s, they allow us to optimize the height of `BST`'s with minimum height possible.
+Above are the two common `self-balancing BST`s, they allow us to optimize the height of `BST`s with minimum height possible.
 
 ## Applications
 * Search Algorithms
