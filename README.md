@@ -59,6 +59,8 @@
 Method Name  | Description
 ------------ | -------------
 `Node#new` | Creates `New node` contains `data`, `left`, `right`
+`Node#<=>` | Compare `node data` to the other value
+`Node#to_s` | Prints the `data`
 `Tree#new` | Creates `New BST` with the given `array`
 `Tree#insert` | Inserts a `Node` to the `BST`
 `Tree#delete` | Deletes a `Node` from the `BST`
