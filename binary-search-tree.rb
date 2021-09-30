@@ -6,6 +6,7 @@ require_relative 'colors/color'
 require 'pry'
 
 # Binary Search Tree
+# rubocop: disable Metrics/ClassLength
 class Tree
   include Color
 
@@ -14,7 +15,7 @@ class Tree
   end
 
   def build_tree(array)
-    array = prepare_the_array(array)
+    array = array.uniq.sort
 
     start_index = 0
     end_index = array.size - 1
@@ -25,17 +26,9 @@ class Tree
     return if value == node.data
 
     if value > node.data
-      if node.right.nil?
-        node.right = node_to_insert
-      else
-        insert(value, node.right, node_to_insert)
-      end
+      node.right.nil? ? node.right = node_to_insert : insert(value, node.right, node_to_insert)
     elsif value < node.data
-      if node.left.nil?
-        node.left = node_to_insert
-      else
-        insert(value, node.left, node_to_insert)
-      end
+      node.left.nil? ? node.left = node_to_insert : insert(value, node.left, node_to_insert)
     end
   end
 
@@ -46,22 +39,14 @@ class Tree
       node.left = delete(value, node.left)
     elsif value > node.data
       node.right = delete(value, node.right)
-    elsif node.left.nil? && node.right.nil?
-      node = nil
-    elsif node.left.nil?
-      node = node.right
-    elsif node.right.nil?
-      node = node.left
-    elsif node.left && node.right
-      node.data = find_right_sub_tree_min_node(node.right).data
-      node.right = delete(node.data, node.right)
+    else
+      node = delete_the_node(node)
     end
     node
   end
 
   def find(value, node = @root)
-    return nil if node.nil?
-    return node if node.data == value
+    return node if node.nil? || node.data == value
 
     value > node.data ? find(value, node.right) : find(value, node.left)
   end
@@ -111,11 +96,7 @@ class Tree
     return nil if node.nil?
     return 0 if node.data == matcher.data
 
-    if node.data < matcher.data
-      depth(node, matcher.left) + 1
-    elsif node.data > matcher.data
-      depth(node, matcher.right) + 1
-    end
+    node.data < matcher.data ? depth(node, matcher.left) + 1 : depth(node, matcher.right) + 1
   end
 
   def balanced?(node = @root)
@@ -136,23 +117,12 @@ class Tree
   end
 
   def to_s
+    return '@root = nil' if @root.nil?
+
     pretty_print
   end
 
   private
-
-  def prepare_the_array(array)
-    array = make_the_array_unique(array)
-    sort_the_array(array)
-  end
-
-  def make_the_array_unique(array)
-    array.uniq
-  end
-
-  def sort_the_array(array)
-    array.sort
-  end
 
   def create_bst(start_index, end_index, array)
     return nil if start_index > end_index
@@ -162,6 +132,33 @@ class Tree
     root.left = create_bst(start_index, middle_index - 1, array)
     root.right = create_bst(middle_index + 1, end_index, array)
     root
+  end
+
+  def delete_the_node(node)
+    return @root = nil if node == @root && height(@root).zero?
+    return @root = delete_root_from_height_one if node == @root && height(@root) == 1
+    return delete_node_with_zero_or_one_child(node) if node.right.nil? || node.lef.nil?
+
+    delete_node_with_two_children(node)
+  end
+
+  def delete_node_with_zero_or_one_child(node)
+    return nil if node.left.nil? && node.right.nil?
+    return node.right if node.left.nil?
+    return node.left if node.right.nil?
+  end
+
+  def delete_root_from_height_one
+    return  @root.right if @root.left.nil?
+    return  @root.left if @root.right.nil?
+
+    delete_node_with_two_children(@root)
+  end
+
+  def delete_node_with_two_children(node)
+    node.data = find_right_sub_tree_min_node(node.right).data
+    node.right = delete(node.data, node.right)
+    node
   end
 
   def find_right_sub_tree_min_node(node)
@@ -187,3 +184,4 @@ class Tree
     pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 end
+# rubocop: enable Metrics/ClassLength
