@@ -17,12 +17,11 @@ class Tree
   def build_tree(array)
     array = array.uniq.sort
 
-    start_index = 0
-    end_index = array.size - 1
-    create_bst(start_index, end_index, array)
+    create_bst(0, array.size - 1, array)
   end
 
   def insert(value, node = @root, node_to_insert = Node.new(value))
+    return @root = node_to_insert if @root.nil?
     return if value == node.data
 
     if value > node.data
@@ -52,7 +51,7 @@ class Tree
   end
 
   def level_order(queue = [@root], values = [])
-    return nil if @root.nil?
+    return [] if @root.nil?
     return values if queue.empty?
 
     node = queue.shift
@@ -92,11 +91,17 @@ class Tree
     [height(node.left), height(node.right)].max + 1
   end
 
-  def depth(node = @root, matcher = @root)
-    return nil if node.nil?
-    return 0 if node.data == matcher.data
+  def depth(target = @root, node_to_match_with = @root)
+    return nil if target.nil?
+    return 0 if target.data == node_to_match_with.data
 
-    node.data < matcher.data ? depth(node, matcher.left) + 1 : depth(node, matcher.right) + 1
+    if target.data < node_to_match_with.data
+      depth(target,
+            node_to_match_with.left) + 1
+    else
+      depth(target,
+            node_to_match_with.right) + 1
+    end
   end
 
   def balanced?(node = @root)
@@ -171,8 +176,13 @@ class Tree
     (number1 - number2).abs
   end
 
-  def pretty_print(node = @root, prefix = '', is_left = true)
-    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right
+  def pretty_print(node = @root, prefix = '', is_left: true)
+    pretty_print(node.right, "#{prefix}#{is_left ? '│   ' : '    '}", is_left: false) if node.right
+    print_the_node(node, prefix, is_left)
+    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", is_left: true) if node.left
+  end
+
+  def print_the_node(node, prefix, is_left)
     puts "#{color_text(prefix,
                        :green)}#{if is_left
                                    color_text('└── ',
@@ -181,7 +191,6 @@ class Tree
                                    color_text('┌── ',
                                               :green)
                                  end}#{color_text(node.data, :red)}"
-    pretty_print(node.left, "#{prefix}#{is_left ? '    ' : '│   '}", true) if node.left
   end
 end
 # rubocop: enable Metrics/ClassLength
