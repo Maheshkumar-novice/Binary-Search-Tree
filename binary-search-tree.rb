@@ -112,7 +112,7 @@ class Tree
 
     left_sub_tree_height = height(node.left)
     right_sub_tree_height = height(node.right)
-    return false if diff(left_sub_tree_height, right_sub_tree_height) > 1
+    return false if difference(left_sub_tree_height, right_sub_tree_height) > 1
 
     is_left_sub_tree_balanced = balanced?(node.left)
     is_right_sub_tree_balanced = balanced?(node.right)
@@ -175,7 +175,7 @@ class Tree
     find_right_sub_tree_min_node(node.left)
   end
 
-  def diff(number1, number2)
+  def difference(number1, number2)
     (number1 - number2).abs
   end
 
