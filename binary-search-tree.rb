@@ -23,11 +23,11 @@ class Tree
 
   def insert(value, node = @root, node_to_insert = Node.new(value))
     return @root = node_to_insert if @root.nil?
-    return if node == value
+    return if value == node.data
 
-    if node > value
+    if value > node.data
       node.right.nil? ? node.right = node_to_insert : insert(value, node.right, node_to_insert)
-    elsif node < value
+    elsif value < node.data
       node.left.nil? ? node.left = node_to_insert : insert(value, node.left, node_to_insert)
     end
   end
@@ -36,9 +36,9 @@ class Tree
     return nil if node.nil?
     return nil unless find(value)
 
-    if node < value
+    if value <  node.data
       node.left = delete(value, node.left)
-    elsif node > value
+    elsif value > node.data
       node.right = delete(value, node.right)
     else
       node = delete_the_node(node)
@@ -48,9 +48,9 @@ class Tree
 
   def find(value, node = @root)
     return nil if node.nil?
-    return node if node == value
+    return node if value == node.data
 
-    node > value ? find(value, node.right) : find(value, node.left)
+    value > node.data ? find(value, node.right) : find(value, node.left)
   end
 
   def level_order(queue = [@root], values = [])
@@ -143,9 +143,9 @@ class Tree
   end
 
   def delete_the_node(node)
-    return @root = nil if node == @root && height(@root).zero?
-    return @root = delete_root_from_height_one if node == @root && height(@root) == 1
-    return delete_node_with_zero_or_one_child(node) if node.right.nil? || node.lef.nil?
+    return @root = nil if @root.equal?(node) && height(@root).zero?
+    return @root = delete_root_from_height_one if @root.equal?(node) && height(@root) == 1
+    return delete_node_with_zero_or_one_child(node) if node.right.nil? || node.left.nil?
 
     delete_node_with_two_children(node)
   end
