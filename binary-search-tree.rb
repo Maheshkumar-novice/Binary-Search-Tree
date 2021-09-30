@@ -33,14 +33,15 @@ class Tree
   end
 
   def delete(value, node = @root)
-    return nil if node.nil?
-    return nil unless find(value)
+    return nil if node.nil? && !find(value)
 
-    if value <  node.data
-      node.left = delete(value, node.left)
-    elsif value > node.data
+    if value >  node.data
       node.right = delete(value, node.right)
+    elsif value < node.data
+      node.left = delete(value, node.left)
     else
+      return @root = delete_the_node(@root) if node.equal?(@root)
+
       node = delete_the_node(node)
     end
     node
@@ -143,30 +144,21 @@ class Tree
   end
 
   def delete_the_node(node)
-    return @root = nil if @root.equal?(node) && height(@root).zero?
-    return @root = delete_root_from_height_one if @root.equal?(node) && height(@root) == 1
-    return delete_node_with_zero_or_one_child(node) if node.right.nil? || node.left.nil?
+    return replacement_of_node_with_zero_or_one_child(node) if node.right.nil? || node.left.nil?
 
-    delete_node_with_two_children(node)
+    replacement_of_node_with_two_children(node)
   end
 
-  def delete_node_with_zero_or_one_child(node)
+  def replacement_of_node_with_zero_or_one_child(node)
     return nil if node.left.nil? && node.right.nil?
     return node.right if node.left.nil?
     return node.left if node.right.nil?
   end
 
-  def delete_node_with_two_children(node)
+  def replacement_of_node_with_two_children(node)
     node.data = find_right_sub_tree_min_node(node.right).data
     node.right = delete(node.data, node.right)
     node
-  end
-
-  def delete_root_from_height_one
-    return  @root.right if @root.left.nil?
-    return  @root.left if @root.right.nil?
-
-    delete_node_with_two_children(@root)
   end
 
   def find_right_sub_tree_min_node(node)
