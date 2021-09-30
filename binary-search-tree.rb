@@ -3,7 +3,6 @@
 
 require_relative 'tree-node'
 require_relative 'colors/color'
-require 'pry'
 
 # Binary Search Tree
 # rubocop: disable Metrics/ClassLength
