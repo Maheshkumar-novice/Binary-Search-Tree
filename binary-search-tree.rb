@@ -9,6 +9,8 @@ require_relative 'colors/color'
 class Tree
   include Color
 
+  attr_reader :root
+
   def initialize(array)
     @root = build_tree(array)
   end
