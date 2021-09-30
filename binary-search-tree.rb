@@ -22,21 +22,22 @@ class Tree
 
   def insert(value, node = @root, node_to_insert = Node.new(value))
     return @root = node_to_insert if @root.nil?
-    return if value == node.data
+    return if node == value
 
-    if value > node.data
+    if node > value
       node.right.nil? ? node.right = node_to_insert : insert(value, node.right, node_to_insert)
-    elsif value < node.data
+    elsif node < value
       node.left.nil? ? node.left = node_to_insert : insert(value, node.left, node_to_insert)
     end
   end
 
   def delete(value, node = @root)
     return nil if node.nil?
+    return nil unless find(value)
 
-    if value < node.data
+    if node < value
       node.left = delete(value, node.left)
-    elsif value > node.data
+    elsif node > value
       node.right = delete(value, node.right)
     else
       node = delete_the_node(node)
@@ -45,9 +46,10 @@ class Tree
   end
 
   def find(value, node = @root)
-    return node if node.nil? || node.data == value
+    return nil if node.nil?
+    return node if node == value
 
-    value > node.data ? find(value, node.right) : find(value, node.left)
+    node > value ? find(value, node.right) : find(value, node.left)
   end
 
   def level_order(queue = [@root], values = [])
@@ -61,20 +63,20 @@ class Tree
     level_order(queue, values)
   end
 
-  def inorder(node = @root, values = [])
-    return values if node.nil?
-
-    inorder(node.left, values)
-    values << node.data
-    inorder(node.right, values)
-  end
-
   def preorder(node = @root, values = [])
     return values if node.nil?
 
     values << node.data
     preorder(node.left, values)
     preorder(node.right, values)
+  end
+
+  def inorder(node = @root, values = [])
+    return values if node.nil?
+
+    inorder(node.left, values)
+    values << node.data
+    inorder(node.right, values)
   end
 
   def postorder(node = @root, values = [])
@@ -153,17 +155,17 @@ class Tree
     return node.left if node.right.nil?
   end
 
+  def delete_node_with_two_children(node)
+    node.data = find_right_sub_tree_min_node(node.right).data
+    node.right = delete(node.data, node.right)
+    node
+  end
+
   def delete_root_from_height_one
     return  @root.right if @root.left.nil?
     return  @root.left if @root.right.nil?
 
     delete_node_with_two_children(@root)
-  end
-
-  def delete_node_with_two_children(node)
-    node.data = find_right_sub_tree_min_node(node.right).data
-    node.right = delete(node.data, node.right)
-    node
   end
 
   def find_right_sub_tree_min_node(node)
